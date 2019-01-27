@@ -1,0 +1,135 @@
+   Department of Software Engineering
+   Mehran University of Engineering and Technology, Jamshoro
+Course: SW412 – Web TechnologiesInstructorRabeea JaffariPractical/Lab No.10DateCLOsCLO-3: P5SignatureAssessment Score
+TopicTo become familiar with file handling and uploading in PHPObjectives- To learn basic filing operations using PHP such as read and write.
+- To learn uploading files to PHP server
+Lab Discussion: Theoretical concepts and Procedural steps
+Basic File Manipulation:  PHP allows several functions for creating, reading, uploading, and editing files. The various PHP functions used for manipulating files are as follows: 
+
+fopen(): Existing files are opened, and new files created using the PHP fopen() (function according to the file opening mode). The fopen()function accepts two arguments and returns a file handle which is subsequently used for all future read and write interactions with that file. 
+* The first argument is the name (including the path) of the file to open. This path is relative to the server files system root, not your web server root. 
+* The second argument is an attribute indicating the mode in which to open the file (create, read only, write only etc). 
+
+The modes for opening the files are as follows:
+
+
+
+fclose():
+Once a file has been opened it can be closed using the fclose()function. The fclose()function takes a single argument -the file handle returned by the fopen() function when the file was first opened. 
+
+
+
+file_exists(): the file_exists() function can be used at any time to find if a file already exists in the filesystem. The function takes a single argument -the path to the file in question and returns a Boolean true or false value depending on the existence of the file. 
+
+Writing to a File: Two PHP functions are used to write/insert data into a file using PHP. These are as follows:
+
+fwrite(): fwrite() takes two arguments, the file handle returned from the original fopen()call and the string to be written.
+
+fputs():fputs() is similar to fwrite() for writing to files using PHP code but it may take a third arguments as well apart from the filehandle and the string to be written i.e. the length which Specifies the maximum number of bytes to write to the file. This argument is optional.
+
+
+
+
+
+Reading from a File: Two PHP functions are used to read/get data from a file using PHP. These are as follows:
+
+fgets($handle): Reads a line of data at a time
+fread($handle,$bytes): Reads up to $bytes of data, stops at EOF (end of file) It is used to read entire file at once.
+
+
+
+
+
+Shortcut Methods: File Reading: 
+
+There are two ‘shortcut’ functions that don’t require a file to be opened
+$lines = file($filename): Reads entire file into an array with each line a separate entry in the array.
+$str= file_get_contents($filename): Reads entire file into a single string.
+
+
+
+Moving, Copying and Deleting Files Using PHP: The methods required to achieve these objective are as follows:
+
+
+File Uploading: In order to upload any file to the PHP server we first need to ensure that the file uploads are turned on in the php.ini file setting as shown in the screenshot below. In case the file_uploads setting is off in the PHP server, we won’t be able to upload the files to the PHP server.
+
+
+
+
+The steps for uploading any file to the PHP server are as follows:
+
+1. Create a HTML form containing File Upload control:
+
+
+
+In the code snippet above:
+
+* enctype: specifies which content-type (encryption) to use when submitting the form.
+* action="uploader.php": specifies the name of our PHP page that will be created below and will upload the file to the server directory.
+* method="POST": informs the browser that we want to send information to the server using POST method.
+* input name="uploadedfile" : uploadedfile specifies how we will access the file selected via file upload control in our PHP script.
+
+
+
+2.   Create a PHP code script that will upload the file selected via HTML Form above to the PHP server:
+
+
+
+In the code snippet above:
+
+
+* The $_FILES is a two-dimensional superglobal associative array where PHP stores all the information about files.
+
+* $_FILES['uploadedfile']['’]: The first dimension is used to access the file selected by the user from the HTML form using  the file upload control’s name (uploadedfile) while the second dimension specifies the any file related property such as file path, size, type etc. 
+
+* $_FILES['uploadedfile']['tmp_name']: tmp_name contains the temporary path on the server where the file resides temporarily before being copied to the original path (can be found in the tmp folder inside xampp folder). The file should exist on the server in a temporary directory with a temporary name.
+
+* $_FILES['uploadedfile']['name']: name contains the original path of the user uploaded file. The original path is always the current server directory (htdocs), in order to move the uploaded files to another directory within htdocs, simply create a directory inside htdocs such as uploaded_files and concatenate this name with the file path $_FILES['uploadedfile']['name'] as shown in the code snippet above.  
+
+* move_uploaded_file: This method is used to move the file from the temporary path on the server ($_FILES['uploadedfile']['tmp_name']) to the final destination on the server ($_FILES['uploadedfile']['name']).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Lab TasksSubmission Date: 28-01-19
+Part A: File Manipulation: 
+
+1. Read any text file and count the number of words using both str_word_count() method and explode() method (to convert string to array using a space separator) and compare the results. Also count the number of lines in the file.
+2. Convert a pdf file to a text file using PHP filing functions.
+3. Append your roll number into a file and then read the file to check the output.
+
+Part B: File Uploading: Create a program to upload
+
+1. Files with JPG, PNG, PDF extensions only and with a size less than or equal to 2 MB. Display a message when the file has been uploaded successfully.
+2. A text file to the PHP server. Create HTML form controls for reading, writing, copying, renaming and deleting the uploaded text file.
+
+
+
+
